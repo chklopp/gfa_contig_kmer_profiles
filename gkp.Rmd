@@ -5,7 +5,7 @@ output:
     toc: true
     toc_depth: 2
 
-date: "2025-10-22"
+date: "2025-10-24"
 params:
   lc:
     value: x
@@ -29,8 +29,10 @@ This Rmarkdown script takes two parameters : lc which is the length coverage fil
 ```{r load}
 print(params$lc)
 print(params$kmerp)
-length_coverage <- read.table(params$lc, h=F, row.names=1)
-kmer_profile <- read.table(params$kmerp, h=F, row.names=1)
+input <- read.table(params$lc, h=F, row.names=1)
+length_coverage <- input[,1:2]
+kmer_profile <-  input[,2:12]
+#kmer_profile <- read.table(params$kmerp, h=F, row.names=1)
 print(dim(length_coverage))
 print(dim(kmer_profile))
 names(length_coverage) <- c("length","cov")
@@ -158,3 +160,4 @@ for (i in 1:nbclass){
 }
 
 ```
+
