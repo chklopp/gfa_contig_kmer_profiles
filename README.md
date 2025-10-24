@@ -24,3 +24,9 @@ options:
   --fasta ASSEMBLY_FASTA   input assembly fasta file
   --fga ASSEMBLY_GFA   input assembly gfa file
   --output OUTPUT   output tsv file
+
+Once you have your name.permils file you can run process it in R to produce the statistics with the gkp.Rmd
+<pre>
+    R -e "rmarkdown::render('gkp.Rmd',params = list(lc='input.permils'),output_file='output.html')"
+</pre>
+  
