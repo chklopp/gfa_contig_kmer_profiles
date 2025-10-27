@@ -62,14 +62,14 @@ head of both tables
 
 ```{r log10_length_coverage_filtered}
 med = median(length_coverage$cov)
-low_cov_names <- row.names(length_coverage[length_coverage$cov < med/1.5 & length_coverage$length < 500000, ])
-print(med)
-print(length(low_cov_names))
+#low_cov_names <- row.names(length_coverage[length_coverage$cov < med/1.5 & length_coverage$length < 500000, ])
+#print(med)
+#print(length(low_cov_names))
 ggplot(length_coverage[length_coverage$cov < 3*med, ], aes(x=log10(length), y=cov)) + geom_point() + geom_density2d()
 
-length_coverage$low <- 0
-length_coverage[row.names(length_coverage) %in% low_cov_names, ]$low <- 1 
-ggplot(length_coverage[length_coverage$cov < 3*med, ], aes(x=log10(length), y=cov, colour=low)) + geom_point() + geom_density2d()
+#length_coverage$low <- 0
+#length_coverage[row.names(length_coverage) %in% low_cov_names, ]$low <- 1 
+#ggplot(length_coverage[length_coverage$cov < 3*med, ], aes(x=log10(length), y=cov, colour=low)) + geom_point() + geom_density2d()
 ```
 
 ## contig profile heatmap
@@ -85,23 +85,23 @@ pheatmap(kmer_profile2, cluster_cols=F, show_rownames = FALSE)
 
 ## contig profile heatmap for contigs with low coverage
 
-head of both tables 
+#head of both tables 
 
-```{r heatmap_low_cov}
+#```{r heatmap_low_cov}
 
-pheatmap(kmer_profile2[row.names(kmer_profile2) %in% low_cov_names, ], cluster_cols=F, show_rownames = FALSE)
+#pheatmap(kmer_profile2[row.names(kmer_profile2) %in% low_cov_names, ], cluster_cols=F, show_rownames = FALSE)
 #pheatmap(kmer_profile2[!(row.names(kmer_profile2) %in% low_cov_names), ], cluster_cols=F)
-```
+#```
 
 ## contig profile heatmap for contigs with high coverage
 
-head of both tables 
+#head of both tables 
 
-```{r heatmap_high_cov}
+#```{r heatmap_high_cov}
 
 #pheatmap(kmer_profile2[row.names(kmer_profile2) %in% low_cov_names, ], cluster_cols=F)
-pheatmap(kmer_profile2[!(row.names(kmer_profile2) %in% low_cov_names), ], cluster_cols=F, show_rownames = FALSE)
-```
+#pheatmap(kmer_profile2[!(row.names(kmer_profile2) %in% low_cov_names), ], cluster_cols=F, show_rownames = FALSE)
+#```
  
 ## clustering 
 
@@ -150,7 +150,7 @@ for (i in 1:nbclass){
     #print(ll)
     str(ll)
     print(dim(ll))
-    print(ggplot(ll, aes(x=log10(length), y=cov, colour=low)) + geom_point())
+    print(ggplot(ll, aes(x=log10(length), y=cov)) + geom_point())
     class_table = kmer_profile2_classif_melt[kmer_profile2_classif_melt$Row.names %in% kmer_profile2_classif[kmer_profile2_classif$classif %in% c(as.character(i)),]$Row.names,]
     print(ggplot(class_table, aes(x=variable,
  y=value, group=Row.names)) + geom_line() + theme(axis.text.x = element_text(angle = 90, hjust = 1)))
