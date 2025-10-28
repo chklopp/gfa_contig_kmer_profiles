@@ -161,3 +161,26 @@ for (i in 1:nbclass){
 
 ```
 
+## Contigs have no kmer with count 1
+
+```{r null_count1}
+
+print(kmer_profile[kmer_profile$c1==0.0,])
+print(row.names(kmer_profile[kmer_profile$c1==0.0,]))
+l = row.names(kmer_profile[kmer_profile$c1==0.0,])
+print(l)
+print(length(l))
+
+ll = length_coverage[row.names(length_coverage) %in% l,]
+
+str(ll)
+print(dim(ll))
+print(ggplot(ll, aes(x=log10(length), y=cov)) + geom_point())
+class_table = kmer_profile2_classif_melt[kmer_profile2_classif_melt$Row.names %in% l,]
+print(ggplot(class_table, aes(x=variable,
+ y=value, group=Row.names)) + geom_line() + theme(axis.text.x = element_text(angle = 90, hjust = 1)))
+    #print(head(class_table))
+print(ggplot(class_table, aes(x=value, 
+ y=Row.names)) + geom_bar(stat="identity", aes(fill=variable), position = position_stack(reverse = TRUE)) + theme(axis.text.x = element_text(angle = 90, hjust = 1), axis.text.y=element_blank()))
+
+```
